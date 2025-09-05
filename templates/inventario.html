@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Inventario - Sistema de Inventario{% endblock %}
+
+{% block content %}
+<div class="inventory-page">
+    <div class="page-header">
+        <div class="header-content">
+            <div>
+                <h2>Inventario Completo</h2>
+                <p>Gestiona todos tus productos desde aquí</p>
+            </div>
+            <div class="header-actions">
+                <a href="{{ url_for('nuevo_producto') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Nuevo Producto
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtros y búsqueda -->
+    <div class="filters">
+        <form method="GET" action="{{ url_for('buscar') }}" class="search-form">
+            <div class="search-group">
+                <input type="text" name="q" placeholder="Buscar productos..." class="search-input">
+                <select name="type" class="search-select">
+                    <option value="nombre">Por nombre</option>
+                    <option value="categoria">Por categoría</option>
+                </select>
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-search"></i>
+                    Buscar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% if products %}
+        <!-- Tabla de productos -->
+        <div class="table-container">
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Stock</th>
+                        <th>Precio</th>
+                        <th>Valor Total</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr class="product-row {% if product.cantidad < 10 %}low-stock{% endif %}">
+                        <td>{{ product.id }}</td>
+                        <td>
+                            <div class="product-info">
+                                <strong>{{ product.nombre }}</strong>
+                                {% if product.descripcion %}
+                                <small>{{ product.descripcion[:50] }}{% if product.descripcion|length > 50 %}...{% endif %}</small>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="category-badge">{{ product.categoria }}</span>
+                        </td>
+                        <td>
+                            <span class="stock-badge {% if product.cantidad < 10 %}low{% elif product.cantidad < 50 %}medium{% else %}high{% endif %}">
+                                {{ product.cantidad }}
+                            </span>
+                        </td>
+                        <td>{{ product.precio | currency }}</td>
+                        <td><strong>{{ (product.cantidad * product.precio) | currency }}</strong></td>
+                        <td>{{ product.fecha_creacion | datetime }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{{ url_for('ver_producto', product_id=product.id) }}" 
+                                   class="btn btn-sm btn-outline" title="Ver detalles">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ url_for('editar_producto', product_id=product.id) }}" 
+                                   class="btn btn-sm btn-warning" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button onclick="deleteProduct({{ product.id }}, '{{ product.nombre }}')" 
+                                        class="btn btn-sm btn-danger" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Resumen del inventario -->
+        <div class="inventory-summary">
+            <div class="summary-card">
+                <h4>Resumen del Inventario</h4>
+                <div class="summary-stats">
+                    <div class="summary-item">
+                        <span>Total de productos:</span>
+                        <strong>{{ products | length }}</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Valor total del inventario:</span>
+                        <strong>{{ products | sum(attribute='cantidad') * products | sum(attribute='precio') | currency }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <!-- Estado vacío -->
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-box-open"></i>
+            </div>
+            <h3>No hay productos en el inventario</h3>
+            <p>Comienza agregando tu primer producto</p>
+            <a href="{{ url_for('nuevo_producto') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Agregar Primer Producto
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Modal de confirmación para eliminar -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirmar Eliminación</h3>
+            <button class="modal-close" onclick="closeDeleteModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>¿Estás seguro de que deseas eliminar el producto <strong id="productName"></strong>?</p>
+            <p class="text-muted">Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
+            <form id="deleteForm" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Eliminar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function deleteProduct(productId, productName) {
+    document.getElementById('productName').textContent = productName;
+    document.getElementById('deleteForm').action = '/producto/' + productId + '/eliminar';
+    document.getElementById('deleteModal').style.display = 'block';
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+}
+
+// Cerrar modal al hacer clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById('deleteModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

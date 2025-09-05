@@ -1,0 +1,299 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.nombre }} - Sistema de Inventario{% endblock %}
+
+{% block content %}
+<div class="product-detail-page">
+    <!-- Navegación -->
+    <div class="breadcrumb">
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+        <a href="{{ url_for('inventario') }}">Inventario</a>
+        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+        <span class="current">{{ product.nombre }}</span>
+    </div>
+
+    <!-- Encabezado del producto -->
+    <div class="product-header">
+        <div class="product-title">
+            <h1>{{ product.nombre }}</h1>
+            <div class="product-meta">
+                <span class="product-id">ID: {{ product.id }}</span>
+                <span class="category-badge">{{ product.categoria }}</span>
+                <span class="stock-status {% if product.cantidad < 10 %}low{% elif product.cantidad < 50 %}medium{% else %}high{% endif %}">
+                    <i class="fas fa-circle"></i>
+                    {% if product.cantidad < 10 %}Stock Bajo
+                    {% elif product.cantidad < 50 %}Stock Medio
+                    {% else %}Stock Alto
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        <div class="product-actions">
+            <a href="{{ url_for('editar_producto', product_id=product.id) }}" class="btn btn-primary">
+                <i class="fas fa-edit"></i>
+                Editar Producto
+            </a>
+            <button onclick="deleteProduct({{ product.id }}, '{{ product.nombre }}')" class="btn btn-danger">
+                <i class="fas fa-trash"></i>
+                Eliminar
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="product-content">
+        <!-- Información del producto -->
+        <div class="product-info-section">
+            <div class="info-card main-info">
+                <h3>Información del Producto</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">
+                            <i class="fas fa-tag"></i>
+                            Nombre
+                        </div>
+                        <div class="info-value">{{ product.nombre }}</div>
+                    </div>
+
+                    {% if product.descripcion %}
+                    <div class="info-item full-width">
+                        <div class="info-label">
+                            <i class="fas fa-align-left"></i>
+                            Descripción
+                        </div>
+                        <div class="info-value description">{{ product.descripcion }}</div>
+                    </div>
+                    {% endif %}
+
+                    <div class="info-item">
+                        <div class="info-label">
+                            <i class="fas fa-folder"></i>
+                            Categoría
+                        </div>
+                        <div class="info-value">
+                            <span class="category-badge">{{ product.categoria }}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">
+                            <i class="fas fa-boxes"></i>
+                            Stock Disponible
+                        </div>
+                        <div class="info-value">
+                            <span class="stock-badge {% if product.cantidad < 10 %}low{% elif product.cantidad < 50 %}medium{% else %}high{% endif %}">
+                                {{ product.cantidad }} unidades
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">
+                            <i class="fas fa-dollar-sign"></i>
+                            Precio Unitario
+                        </div>
+                        <div class="info-value price">{{ product.precio | currency }}</div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">
+                            <i class="fas fa-calculator"></i>
+                            Valor Total del Stock
+                        </div>
+                        <div class="info-value total-value">
+                            {{ (product.cantidad * product.precio) | currency }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fechas y timestamps -->
+            <div class="info-card dates-info">
+                <h3>Información de Fechas</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">
+                            <i class="fas fa-plus-circle"></i>
+                            Fecha de Creación
+                        </div>
+                        <div class="info-value">{{ product.fecha_creacion | datetime }}</div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">
+                            <i class="fas fa-sync-alt"></i>
+                            Última Actualización
+                        </div>
+                        <div class="info-value">{{ product.fecha_actualizacion | datetime }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel lateral con estadísticas -->
+        <div class="product-sidebar">
+            <!-- Estadísticas rápidas -->
+            <div class="stats-card">
+                <h3>Estadísticas</h3>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Stock Actual</div>
+                        <div class="stat-value">{{ product.cantidad }}</div>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Valor por Unidad</div>
+                        <div class="stat-value">{{ product.precio | currency }}</div>
+                    </div>
+                </div>
+
+                <div class="stat-item highlight">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Valor Total</div>
+                        <div class="stat-value">{{ (product.cantidad * product.precio) | currency }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acciones rápidas -->
+            <div class="quick-actions-card">
+                <h3>Acciones Rápidas</h3>
+                <div class="action-buttons-vertical">
+                    <a href="{{ url_for('editar_producto', product_id=product.id) }}" class="btn btn-outline btn-block">
+                        <i class="fas fa-edit"></i>
+                        Editar Información
+                    </a>
+                    
+                    <a href="{{ url_for('buscar', q=product.categoria, type='categoria') }}" class="btn btn-outline btn-block">
+                        <i class="fas fa-search"></i>
+                        Ver Categoría Similar
+                    </a>
+                    
+                    <a href="{{ url_for('inventario') }}" class="btn btn-outline btn-block">
+                        <i class="fas fa-list"></i>
+                        Volver al Inventario
+                    </a>
+                    
+                    <button onclick="deleteProduct({{ product.id }}, '{{ product.nombre }}')" class="btn btn-danger btn-block">
+                        <i class="fas fa-trash"></i>
+                        Eliminar Producto
+                    </button>
+                </div>
+            </div>
+
+            <!-- Estado del stock -->
+            <div class="stock-status-card">
+                <h3>Estado del Stock</h3>
+                <div class="stock-indicator">
+                    {% if product.cantidad == 0 %}
+                    <div class="status-item critical">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Sin Stock</span>
+                    </div>
+                    {% elif product.cantidad < 10 %}
+                    <div class="status-item warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Stock Bajo</span>
+                    </div>
+                    {% elif product.cantidad < 50 %}
+                    <div class="status-item info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Stock Medio</span>
+                    </div>
+                    {% else %}
+                    <div class="status-item success">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Stock Óptimo</span>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                {% if product.cantidad < 10 %}
+                <div class="stock-alert">
+                    <p><strong>¡Atención!</strong> El stock está por debajo del nivel recomendado.</p>
+                    <a href="{{ url_for('editar_producto', product_id=product.id) }}" class="btn btn-sm btn-warning">
+                        Actualizar Stock
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación para eliminar -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirmar Eliminación</h3>
+            <button class="modal-close" onclick="closeDeleteModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="warning-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <p>¿Estás seguro de que deseas eliminar el producto <strong>{{ product.nombre }}</strong>?</p>
+            <div class="warning-details">
+                <ul>
+                    <li>Se perderá toda la información del producto</li>
+                    <li>Esta acción no se puede deshacer</li>
+                    <li>Stock actual: {{ product.cantidad }} unidades</li>
+                    <li>Valor total: {{ (product.cantidad * product.precio) | currency }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
+            <form method="POST" action="{{ url_for('eliminar_producto', product_id=product.id) }}" style="display: inline;">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Eliminar Definitivamente
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function deleteProduct(productId, productName) {
+    document.getElementById('deleteModal').style.display = 'block';
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+}
+
+// Cerrar modal al hacer clic fuera
+window.onclick = function(event) {
+    const modal = document.getElementById('deleteModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Animación de entrada
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.info-card, .stats-card, .quick-actions-card, .stock-status-card');
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Sistema de Inventario{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="page-header">
+        <h2>Panel de Control</h2>
+        <p>Resumen general de tu inventario</p>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-boxes"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Total Productos</h3>
+                <p class="stat-number">{{ stats.total_products }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Valor Total</h3>
+                <p class="stat-number">{{ stats.total_value | currency }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Stock Bajo</h3>
+                <p class="stat-number">{{ stats.low_stock }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-tags"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Categorías</h3>
+                <p class="stat-number">{{ stats.categories }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones rápidas -->
+    <div class="quick-actions">
+        <h3>Acciones Rápidas</h3>
+        <div class="action-buttons">
+            <a href="{{ url_for('nuevo_producto') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Agregar Producto
+            </a>
+            <a href="{{ url_for('inventario') }}" class="btn btn-secondary">
+                <i class="fas fa-list"></i>
+                Ver Inventario
+            </a>
+            <a href="{{ url_for('buscar') }}" class="btn btn-secondary">
+                <i class="fas fa-search"></i>
+                Buscar Productos
+            </a>
+        </div>
+    </div>
+
+    <!-- Productos recientes -->
+    {% if recent_products %}
+    <div class="recent-products">
+        <h3>Productos Recientes</h3>
+        <div class="products-grid">
+            {% for product in recent_products %}
+            <div class="product-card">
+                <div class="product-header">
+                    <h4>{{ product.nombre }}</h4>
+                    <span class="product-category">{{ product.categoria }}</span>
+                </div>
+                <div class="product-details">
+                    <p class="product-price">{{ product.precio | currency }}</p>
+                    <p class="product-stock">Stock: {{ product.cantidad }}</p>
+                </div>
+                <div class="product-actions">
+                    <a href="{{ url_for('ver_producto', product_id=product.id) }}" class="btn btn-sm btn-outline">Ver</a>
+                    <a href="{{ url_for('editar_producto', product_id=product.id) }}" class="btn btn-sm btn-outline">Editar</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <a href="{{ url_for('inventario') }}" class="btn btn-outline">Ver Todos los Productos</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

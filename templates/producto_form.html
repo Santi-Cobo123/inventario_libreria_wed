@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}{% if product %}Editar{% else %}Nuevo{% endif %} Producto - Sistema de Inventario{% endblock %}
+
+{% block content %}
+<div class="form-page">
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-{% if product %}edit{% else %}plus{% endif %}"></i>
+            {% if product %}Editar Producto{% else %}Nuevo Producto{% endif %}
+        </h2>
+        <p>{% if product %}Modifica los datos del producto{% else %}Agrega un nuevo producto al inventario{% endif %}</p>
+    </div>
+
+    <div class="form-container">
+        <form method="POST" class="product-form">
+            <div class="form-grid">
+                <!-- Información básica -->
+                <div class="form-section">
+                    <h3>Información Básica</h3>
+                    
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">
+                            <i class="fas fa-tag"></i>
+                            Nombre del Producto *
+                        </label>
+                        <input type="text" 
+                               id="nombre" 
+                               name="nombre" 
+                               class="form-input" 
+                               value="{{ product.nombre if product else '' }}" 
+                               required 
+                               maxlength="100"
+                               placeholder="Ej: Laptop Dell Inspiron 15">
+                        <small class="form-help">Nombre único e identificativo del producto</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion" class="form-label">
+                            <i class="fas fa-align-left"></i>
+                            Descripción
+                        </label>
+                        <textarea id="descripcion" 
+                                  name="descripcion" 
+                                  class="form-textarea" 
+                                  rows="3" 
+                                  maxlength="500"
+                                  placeholder="Descripción detallada del producto...">{{ product.descripcion if product else '' }}</textarea>
+                        <small class="form-help">Descripción opcional del producto (máx. 500 caracteres)</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria" class="form-label">
+                            <i class="fas fa-folder"></i>
+                            Categoría *
+                        </label>
+                        <div class="input-with-suggestions">
+                            <input type="text" 
+                                   id="categoria" 
+                                   name="categoria" 
+                                   class="form-input" 
+                                   value="{{ product.categoria if product else '' }}" 
+                                   required 
+                                   maxlength="50"
+                                   placeholder="Ej: Electrónicos, Oficina, Hogar"
+                                   list="categorias">
+                            <datalist id="categorias">
+                                {% for cat in categories %}
+                                <option value="{{ cat }}">
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                        <small class="form-help">Selecciona una categoría existente o crea una nueva</small>
+                    </div>
+                </div>
+
+                <!-- Información de inventario -->
+                <div class="form-section">
+                    <h3>Inventario y Precios</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cantidad" class="form-label">
+                                <i class="fas fa-boxes"></i>
+                                Cantidad en Stock *
+                            </label>
+                            <input type="number" 
+                                   id="cantidad" 
+                                   name="cantidad" 
+                                   class="form-input" 
+                                   value="{{ product.cantidad if product else 0 }}" 
+                                   min="0" 
+                                   max="999999"
+                                   required>
+                            <small class="form-help">Cantidad disponible en inventario</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="precio" class="form-label">
+                                <i class="fas fa-dollar-sign"></i>
+                                Precio Unitario *
+                            </label>
+                            <input type="number" 
+                                   id="precio" 
+                                   name="precio" 
+                                   class="form-input" 
+                                   value="{{ product.precio if product else '' }}" 
+                                   min="0" 
+                                   step="0.01"
+                                   required
+                                   placeholder="0.00">
+                            <small class="form-help">Precio por unidad en dólares</small>
+                        </div>
+                    </div>
+
+                    {% if product %}
+                    <div class="form-group">
+                        <div class="info-card">
+                            <div class="info-item">
+                                <span class="info-label">Valor Total del Stock:</span>
+                                <span class="info-value" id="totalValue">{{ (product.cantidad * product.precio) | currency }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Última Actualización:</span>
+                                <span class="info-value">{{ product.fecha_actualizacion | datetime }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="form-group">
+                        <div class="info-card">
+                            <div class="info-item">
+                                <span class="info-label">Valor Total del Stock:</span>
+                                <span class="info-value" id="totalValue">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    {% if product %}Actualizar Producto{% else %}Crear Producto{% endif %}
+                </button>
+                <a href="{{ url_for('inventario') }}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </a>
+                {% if product %}
+                <button type="button" 
+                        onclick="deleteProduct({{ product.id }}, '{{ product.nombre }}')" 
+                        class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Eliminar
+                </button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if product %}
+<!-- Modal de confirmación para eliminar -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirmar Eliminación</h3>
+            <button class="modal-close" onclick="closeDeleteModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>¿Estás seguro de que deseas eliminar el producto <strong>{{ product.nombre }}</strong>?</p>
+            <p class="text-muted">Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
+            <form method="POST" action="{{ url_for('eliminar_producto', product_id=product.id) }}" style="display: inline;">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Eliminar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script>
+// Calcular valor total automáticamente
+function updateTotalValue() {
+    const cantidad = parseFloat(document.getElementById('cantidad').value) || 0;
+    const precio = parseFloat(document.getElementById('precio').value) || 0;
+    const total = cantidad * precio;
+    document.getElementById('totalValue').textContent = ' + total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+document.getElementById('cantidad').addEventListener('input', updateTotalValue);
+document.getElementById('precio').addEventListener('input', updateTotalValue);
+
+// Funciones del modal
+function deleteProduct(productId, productName) {
+    document.getElementById('deleteModal').style.display = 'block';
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+}
+
+// Cerrar modal al hacer clic fuera
+window.onclick = function(event) {
+    const modal = document.getElementById('deleteModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Validación del formulario
+document.querySelector('.product-form').addEventListener('submit', function(e) {
+    const nombre = document.getElementById('nombre').value.trim();
+    const cantidad = parseInt(document.getElementById('cantidad').value);
+    const precio = parseFloat(document.getElementById('precio').value);
+
+    if (!nombre) {
+        e.preventDefault();
+        alert('El nombre del producto es obligatorio');
+        return;
+    }
+
+    if (cantidad < 0) {
+        e.preventDefault();
+        alert('La cantidad no puede ser negativa');
+        return;
+    }
+
+    if (precio < 0) {
+        e.preventDefault();
+        alert('El precio no puede ser negativo');
+        return;
+    }
+});
+</script>
+{% endblock %}

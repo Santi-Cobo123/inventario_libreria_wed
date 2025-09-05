@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block title %}Buscar Productos - Sistema de Inventario{% endblock %}
+
+{% block content %}
+<div class="search-page">
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-search"></i>
+            Buscar Productos
+        </h2>
+        <p>Encuentra productos por nombre, descripción o categoría</p>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <div class="search-container">
+        <form method="GET" class="search-form-advanced">
+            <div class="search-row">
+                <div class="search-input-group">
+                    <label for="q" class="search-label">Término de búsqueda</label>
+                    <input type="text" 
+                           id="q" 
+                           name="q" 
+                           class="search-input" 
+                           value="{{ term }}" 
+                           placeholder="Ingresa el nombre del producto o descripción..."
+                           required>
+                </div>
+                
+                <div class="search-select-group">
+                    <label for="type" class="search-label">Buscar en</label>
+                    <select id="type" name="type" class="search-select">
+                        <option value="nombre" {% if search_type == 'nombre' %}selected{% endif %}>
+                            Nombre y descripción
+                        </option>
+                        <option value="categoria" {% if search_type == 'categoria' %}selected{% endif %}>
+                            Categoría
+                        </option>
+                    </select>
+                </div>
+                
+                <div class="search-button-group">
+                    <button type="submit" class="btn btn-primary btn-search">
+                        <i class="fas fa-search"></i>
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Filtros rápidos por categoría -->
+    {% if categories %}
+    <div class="quick-filters">
+        <h4>Filtros Rápidos por Categoría:</h4>
+        <div class="category-filters">
+            {% for category in categories %}
+            <a href="{{ url_for('buscar', q=category, type='categoria') }}" 
+               class="category-filter {% if term == category and search_type == 'categoria' %}active{% endif %}">
+                <i class="fas fa-tag"></i>
+                {{ category }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Resultados de búsqueda -->
+    {% if term %}
+    <div class="search-results">
+        <div class="results-header">
+            <h3>
+                Resultados para "{{ term }}" 
+                {% if search_type == 'categoria' %}en categorías{% endif %}
+            </h3>
+            <span class="results-count">{{ results | length }} producto(s) encontrado(s)</span>
+        </div>
+
+        {% if results %}
+        <div class="results-container">
+            <!-- Vista de tabla -->
+            <div class="table-container">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Stock</th>
+                            <th>Precio</th>
+                            <th>Valor Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in results %}
+                        <tr class="product-row {% if product.cantidad < 10 %}low-stock{% endif %}">
+                            <td>
+                                <div class="product-info">
+                                    <strong>{{ product.nombre }}</strong>
+                                    {% if product.descripcion %}
+                                    <small>{{ product.descripcion[:80] }}{% if product.descripcion|length > 80 %}...{% endif %}</small>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="category-badge">{{ product.categoria }}</span>
+                            </td>
+                            <td>
+                                <span class="stock-badge {% if product.cantidad < 10 %}low{% elif product.cantidad < 50 %}medium{% else %}high{% endif %}">
+                                    {{ product.cantidad }}
+                                </span>
+                            </td>
+                            <td>{{ product.precio | currency }}</td>
+                            <td><strong>{{ (product.cantidad * product.precio) | currency }}</strong></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{{ url_for('ver_producto', product_id=product.id) }}" 
+                                       class="btn btn-sm btn-outline" title="Ver detalles">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ url_for('editar_producto', product_id=product.id) }}" 
+                                       class="btn btn-sm btn-warning" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Vista de tarjetas (para móviles) -->
+            <div class="cards-container">
+                {% for product in results %}
+                <div class="product-card">
+                    <div class="product-header">
+                        <h4>{{ product.nombre }}</h4>
+                        <span class="product-category">{{ product.categoria }}</span>
+                    </div>
+                    
+                    {% if product.descripcion %}
+                    <div class="product-description">
+                        <p>{{ product.descripcion[:100] }}{% if product.descripcion|length > 100 %}...{% endif %}</p>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="product-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Stock:</span>
+                            <span class="stock-badge {% if product.cantidad < 10 %}low{% elif product.cantidad < 50 %}medium{% else %}high{% endif %}">
+                                {{ product.cantidad }}
+                            </span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Precio:</span>
+                            <span class="price">{{ product.precio | currency }}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Valor Total:</span>
+                            <strong>{{ (product.cantidad * product.precio) | currency }}</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <a href="{{ url_for('ver_producto', product_id=product.id) }}" class="btn btn-sm btn-outline">
+                            <i class="fas fa-eye"></i> Ver
+                        </a>
+                        <a href="{{ url_for('editar_producto', product_id=product.id) }}" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Resumen de resultados -->
+        <div class="search-summary">
+            <div class="summary-card">
+                <h4>Resumen de la búsqueda</h4>
+                <div class="summary-stats">
+                    <div class="summary-item">
+                        <span>Productos encontrados:</span>
+                        <strong>{{ results | length }}</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Stock total encontrado:</span>
+                        <strong>{{ results | sum(attribute='cantidad') }}</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Valor total encontrado:</span>
+                        <strong id="totalSearchValue">$0.00</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- Sin resultados -->
+        <div class="no-results">
+            <div class="no-results-icon">
+                <i class="fas fa-search-minus"></i>
+            </div>
+            <h3>No se encontraron productos</h3>
+            <p>No hay productos que coincidan con tu búsqueda "{{ term }}"</p>
+            <div class="no-results-suggestions">
+                <h4>Sugerencias:</h4>
+                <ul>
+                    <li>Verifica la ortografía de los términos de búsqueda</li>
+                    <li>Intenta con términos más generales</li>
+                    <li>Prueba buscando por categoría en lugar de nombre</li>
+                    <li>Revisa el <a href="{{ url_for('inventario') }}">inventario completo</a></li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% else %}
+    <!-- Estado inicial sin búsqueda -->
+    <div class="search-empty">
+        <div class="empty-icon">
+            <i class="fas fa-search"></i>
+        </div>
+        <h3>Busca productos en tu inventario</h3>
+        <p>Utiliza el formulario de arriba para encontrar productos específicos</p>
+        
+        {% if categories %}
+        <div class="search-tips">
+            <h4>Búsquedas populares:</h4>
+            <div class="popular-searches">
+                {% for category in categories[:5] %}
+                <a href="{{ url_for('buscar', q=category, type='categoria') }}" class="search-suggestion">
+                    {{ category }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+<script>
+// Calcular valor total de los resultados de búsqueda
+document.addEventListener('DOMContentLoaded', function() {
+    const results = {{ results | tojson }};
+    let totalValue = 0;
+    
+    results.forEach(product => {
+        totalValue += product.cantidad * product.precio;
+    });
+    
+    const totalElement = document.getElementById('totalSearchValue');
+    if (totalElement) {
+        totalElement.textContent = '$' + totalValue.toLocaleString('en-US', {
+            minimumFractionDigits: 2, 
+            maximumFractionDigits: 2
+        });
+    }
+});
+
+// Auto-focus en el campo de búsqueda
+document.getElementById('q').focus();
+
+// Búsqueda en tiempo real (opcional)
+let searchTimeout;
+document.getElementById('q').addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        // Aquí podrías implementar búsqueda en tiempo real con AJAX
+        // Por ahora mantenemos la búsqueda tradicional
+    }, 500);
+});
+</script>
+{% endblock %}
