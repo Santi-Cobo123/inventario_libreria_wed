@@ -1,0 +1,520 @@
+{
+  "productos": [
+    {
+      "id": 50,
+      "nombre": "Juego de Mesa Catan",
+      "descripcion": "Juego estratégico para toda la familia",
+      "cantidad": 18,
+      "precio": 55.0,
+      "categoria": "Juguetes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 49,
+      "nombre": "Guitarra Acústica Yamaha",
+      "descripcion": "Guitarra para principiantes con cuerdas de acero",
+      "cantidad": 6,
+      "precio": 199.0,
+      "categoria": "Juguetes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 48,
+      "nombre": "Puzzle 1000 Piezas",
+      "descripcion": "Rompecabezas de paisaje europeo",
+      "cantidad": 20,
+      "precio": 19.99,
+      "categoria": "Juguetes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 47,
+      "nombre": "Drone DJI Mini 3",
+      "descripcion": "Drone compacto con cámara 4K y gimbal",
+      "cantidad": 5,
+      "precio": 759.0,
+      "categoria": "Juguetes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 46,
+      "nombre": "LEGO Creator Expert",
+      "descripcion": "Set de construcción avanzado de 2000 piezas",
+      "cantidad": 12,
+      "precio": 179.99,
+      "categoria": "Juguetes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 45,
+      "nombre": "Vitaminas Multivitamínico",
+      "descripcion": "Suplemento diario con vitaminas y minerales",
+      "cantidad": 50,
+      "precio": 29.99,
+      "categoria": "Belleza",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 44,
+      "nombre": "Champú Orgánico Libre de Sulfatos",
+      "descripcion": "Champú natural para todo tipo de cabello",
+      "cantidad": 35,
+      "precio": 22.99,
+      "categoria": "Belleza",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 43,
+      "nombre": "Kit de Maquillaje Profesional",
+      "descripcion": "Set completo con pinceles y paleta de colores",
+      "cantidad": 15,
+      "precio": 129.99,
+      "categoria": "Belleza",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 42,
+      "nombre": "Perfume Chanel No. 5",
+      "descripcion": "Fragancia clásica femenina de 100ml",
+      "cantidad": 8,
+      "precio": 165.0,
+      "categoria": "Belleza",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 41,
+      "nombre": "Crema Facial Anti-edad",
+      "descripcion": "Crema con retinol y ácido hialurónico",
+      "cantidad": 40,
+      "precio": 85.0,
+      "categoria": "Belleza",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 40,
+      "nombre": "Pack Cuadernos Moleskine",
+      "descripcion": "Set de 3 cuadernos de tapa dura rayados",
+      "cantidad": 25,
+      "precio": 45.0,
+      "categoria": "Oficina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 39,
+      "nombre": "Impresora HP LaserJet",
+      "descripcion": "Impresora láser monocromática para oficina",
+      "cantidad": 8,
+      "precio": 199.0,
+      "categoria": "Oficina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 38,
+      "nombre": "Monitor 4K 27 pulgadas",
+      "descripcion": "Monitor profesional para diseño gráfico",
+      "cantidad": 6,
+      "precio": 349.99,
+      "categoria": "Oficina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 37,
+      "nombre": "Escritorio de Madera",
+      "descripcion": "Escritorio ejecutivo con 3 cajones y acabado premium",
+      "cantidad": 4,
+      "precio": 399.99,
+      "categoria": "Oficina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 36,
+      "nombre": "Silla Ergonómica Oficina",
+      "descripcion": "Silla con soporte lumbar y reposabrazos ajustables",
+      "cantidad": 11,
+      "precio": 289.0,
+      "categoria": "Oficina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 35,
+      "nombre": "Juego de Cuchillos",
+      "descripcion": "Set de 8 cuchillos profesionales con block de madera",
+      "cantidad": 7,
+      "precio": 159.99,
+      "categoria": "Cocina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 34,
+      "nombre": "Batidora KitchenAid",
+      "descripcion": "Batidora de pie profesional con múltiples accesorios",
+      "cantidad": 3,
+      "precio": 449.99,
+      "categoria": "Cocina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 33,
+      "nombre": "Sartén Antiadherente 28cm",
+      "descripcion": "Sartén premium con recubrimiento cerámico",
+      "cantidad": 16,
+      "precio": 75.0,
+      "categoria": "Cocina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 32,
+      "nombre": "Cafetera Nespresso",
+      "descripcion": "Máquina de café expreso con sistema de cápsulas",
+      "cantidad": 12,
+      "precio": 199.0,
+      "categoria": "Cocina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 31,
+      "nombre": "Licuadora Vitamix A3500",
+      "descripcion": "Licuadora de alta potencia con 5 programas",
+      "cantidad": 4,
+      "precio": 595.0,
+      "categoria": "Cocina",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 30,
+      "nombre": "Raqueta de Tenis Wilson",
+      "descripcion": "Raqueta profesional con grip cómodo",
+      "cantidad": 9,
+      "precio": 125.0,
+      "categoria": "Deportes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 29,
+      "nombre": "Esterilla de Yoga Premium",
+      "descripcion": "Esterilla antideslizante de 6mm de grosor",
+      "cantidad": 30,
+      "precio": 45.0,
+      "categoria": "Deportes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 28,
+      "nombre": "Pelota de Fútbol FIFA",
+      "descripcion": "Pelota oficial para competencias profesionales",
+      "cantidad": 22,
+      "precio": 35.0,
+      "categoria": "Deportes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 27,
+      "nombre": "Set de Pesas Ajustables",
+      "descripcion": "Pesas de 2kg a 20kg con barra y discos",
+      "cantidad": 8,
+      "precio": 189.99,
+      "categoria": "Deportes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 26,
+      "nombre": "Bicicleta Mountain Bike",
+      "descripcion": "Bicicleta todo terreno con 21 velocidades",
+      "cantidad": 5,
+      "precio": 450.0,
+      "categoria": "Deportes",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 25,
+      "nombre": "Diccionario Inglés-Español",
+      "descripcion": "Diccionario completo con más de 50,000 entradas",
+      "cantidad": 15,
+      "precio": 28.99,
+      "categoria": "Libros",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 24,
+      "nombre": "Atlas Mundial 2024",
+      "descripcion": "Atlas geográfico actualizado con mapas detallados",
+      "cantidad": 10,
+      "precio": 65.0,
+      "categoria": "Libros",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 23,
+      "nombre": "Curso de JavaScript Completo",
+      "descripcion": "Manual paso a paso para desarrollo web",
+      "cantidad": 20,
+      "precio": 39.99,
+      "categoria": "Libros",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 22,
+      "nombre": "Cien Años de Soledad",
+      "descripcion": "Novela clásica de Gabriel García Márquez",
+      "cantidad": 18,
+      "precio": 15.99,
+      "categoria": "Libros",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 21,
+      "nombre": "Python Programming 4th Ed",
+      "descripcion": "Libro completo para aprender programación en Python",
+      "cantidad": 25,
+      "precio": 49.99,
+      "categoria": "Libros",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 20,
+      "nombre": "Reloj Casio G-Shock",
+      "descripcion": "Reloj deportivo resistente al agua y golpes",
+      "cantidad": 14,
+      "precio": 120.0,
+      "categoria": "Ropa",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 19,
+      "nombre": "Bolso Michael Kors",
+      "descripcion": "Bolso de mano de cuero genuino color negro",
+      "cantidad": 6,
+      "precio": 285.0,
+      "categoria": "Ropa",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 18,
+      "nombre": "Chaqueta North Face",
+      "descripcion": "Chaqueta impermeable para actividades al aire libre",
+      "cantidad": 12,
+      "precio": 199.99,
+      "categoria": "Ropa",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 17,
+      "nombre": "Zapatillas Adidas Ultraboost",
+      "descripcion": "Zapatillas para running con tecnología Boost",
+      "cantidad": 18,
+      "precio": 180.0,
+      "categoria": "Ropa",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 16,
+      "nombre": "Camiseta Nike Dri-FIT",
+      "descripcion": "Camiseta deportiva de alta tecnología",
+      "cantidad": 45,
+      "precio": 29.99,
+      "categoria": "Ropa",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 15,
+      "nombre": "Jeans Levis 501 Original",
+      "descripcion": "Jeans clásicos de mezclilla azul, talla variada",
+      "cantidad": 30,
+      "precio": 89.99,
+      "categoria": "Ropa",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 14,
+      "nombre": "Cortinas Blackout",
+      "descripcion": "Cortinas que bloquean la luz, ideales para dormitorios",
+      "cantidad": 15,
+      "precio": 75.0,
+      "categoria": "Hogar",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 13,
+      "nombre": "Cojines Decorativos Set",
+      "descripcion": "Set de 4 cojines de diferentes texturas y colores",
+      "cantidad": 20,
+      "precio": 45.0,
+      "categoria": "Hogar",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 12,
+      "nombre": "Espejo Decorativo Grande",
+      "descripcion": "Espejo de pared con marco dorado de 120cm",
+      "cantidad": 5,
+      "precio": 89.99,
+      "categoria": "Hogar",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 11,
+      "nombre": "Lámpara de Pie LED",
+      "descripcion": "Lámpara moderna con regulador de intensidad",
+      "cantidad": 8,
+      "precio": 125.0,
+      "categoria": "Hogar",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 10,
+      "nombre": "Mesa de Comedor Redonda",
+      "descripcion": "Mesa de madera maciza para 6 personas",
+      "cantidad": 2,
+      "precio": 550.0,
+      "categoria": "Hogar",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 9,
+      "nombre": "Sofá 3 Plazas Moderno",
+      "descripcion": "Sofá cómodo de tela gris con patas de madera",
+      "cantidad": 3,
+      "precio": 899.0,
+      "categoria": "Hogar",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 8,
+      "nombre": "Nintendo Switch OLED",
+      "descripcion": "Consola de videojuegos portátil con pantalla OLED",
+      "cantidad": 7,
+      "precio": 349.99,
+      "categoria": "Electrónicos",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 7,
+      "nombre": "Apple Watch Series 9",
+      "descripcion": "Reloj inteligente con GPS y monitor de salud",
+      "cantidad": 10,
+      "precio": 429.0,
+      "categoria": "Electrónicos",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 6,
+      "nombre": "AirPods Pro 2",
+      "descripcion": "Auriculares inalámbricos con cancelación de ruido",
+      "cantidad": 25,
+      "precio": 249.99,
+      "categoria": "Electrónicos",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 5,
+      "nombre": "MacBook Pro 14",
+      "descripcion": "Laptop Apple con chip M3 Pro para profesionales",
+      "cantidad": 4,
+      "precio": 2399.0,
+      "categoria": "Electrónicos",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 4,
+      "nombre": "iPad Air 10.9",
+      "descripcion": "Tablet Apple con chip M1 y pantalla Liquid Retina",
+      "cantidad": 6,
+      "precio": 650.0,
+      "categoria": "Electrónicos",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 3,
+      "nombre": "Samsung Galaxy S24",
+      "descripcion": "Teléfono Android con pantalla AMOLED de 6.1 pulgadas",
+      "cantidad": 12,
+      "precio": 899.99,
+      "categoria": "Electrónicos",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 2,
+      "nombre": "iPhone 14 Pro",
+      "descripcion": "Smartphone Apple con cámara de 48MP y pantalla Super Retina XDR",
+      "cantidad": 8,
+      "precio": 1200.0,
+      "categoria": "Electrónicos",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    },
+    {
+      "id": 1,
+      "nombre": "Laptop Dell Inspiron 15",
+      "descripcion": "Laptop para uso profesional con procesador Intel Core i5",
+      "cantidad": 15,
+      "precio": 750.0,
+      "categoria": "Electrónicos",
+      "fecha_creacion": "2025-09-05 20:41:39",
+      "fecha_actualizacion": "2025-09-05 20:41:39"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "fecha_exportacion": "2025-09-07 12:49:51",
+    "total_productos": 50,
+    "categorias": [
+      "Belleza",
+      "Cocina",
+      "Deportes",
+      "Electrónicos",
+      "Hogar",
+      "Juguetes",
+      "Libros",
+      "Oficina",
+      "Ropa"
+    ]
+  }
+}

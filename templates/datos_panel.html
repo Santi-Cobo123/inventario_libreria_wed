@@ -1,0 +1,524 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de Datos - Sistema de Inventario{% endblock %}
+
+{% block content %}
+<div class="datos-panel">
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-database"></i>
+            Gestión de Datos
+        </h2>
+        <p>Importa, exporta y gestiona los archivos de datos del inventario</p>
+    </div>
+
+    <!-- Estadísticas rápidas -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-boxes"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Total Productos</h3>
+                <p class="stat-number">{{ stats.total_products }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Valor Total</h3>
+                <p class="stat-number">{{ stats.total_value | currency }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Archivos Generados</h3>
+                <p class="stat-number">{{ (files_info.txt + files_info.json + files_info.csv) }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-sync-alt"></i>
+            </div>
+            <div class="stat-content">
+                <h3>Estado</h3>
+                <p class="stat-number">Sincronizado</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="datos-content">
+        <!-- Sección de exportación -->
+        <div class="datos-section export-section">
+            <div class="section-header">
+                <h3>
+                    <i class="fas fa-download"></i>
+                    Exportar Datos
+                </h3>
+                <p>Descarga los datos del inventario en diferentes formatos</p>
+            </div>
+
+            <div class="export-options">
+                <div class="export-card">
+                    <div class="export-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="export-info">
+                        <h4>Archivo de Texto (.txt)</h4>
+                        <p>Formato simple separado por pipes (|)</p>
+                        <span class="file-status {% if files_info.txt %}available{% else %}unavailable{% endif %}">
+                            {% if files_info.txt %}
+                                <i class="fas fa-check-circle"></i> Disponible
+                            {% else %}
+                                <i class="fas fa-times-circle"></i> No disponible
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="export-actions">
+                        <a href="{{ url_for('exportar_datos', formato='txt') }}" class="btn btn-primary">
+                            <i class="fas fa-download"></i>
+                            Descargar TXT
+                        </a>
+                    </div>
+                </div>
+
+                <div class="export-card">
+                    <div class="export-icon">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <div class="export-info">
+                        <h4>JSON (.json)</h4>
+                        <p>Formato estructurado con metadatos</p>
+                        <span class="file-status {% if files_info.json %}available{% else %}unavailable{% endif %}">
+                            {% if files_info.json %}
+                                <i class="fas fa-check-circle"></i> Disponible
+                            {% else %}
+                                <i class="fas fa-times-circle"></i> No disponible
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="export-actions">
+                        <a href="{{ url_for('exportar_datos', formato='json') }}" class="btn btn-primary">
+                            <i class="fas fa-download"></i>
+                            Descargar JSON
+                        </a>
+                    </div>
+                </div>
+
+                <div class="export-card">
+                    <div class="export-icon">
+                        <i class="fas fa-table"></i>
+                    </div>
+                    <div class="export-info">
+                        <h4>CSV (.csv)</h4>
+                        <p>Compatible con Excel y hojas de cálculo</p>
+                        <span class="file-status {% if files_info.csv %}available{% else %}unavailable{% endif %}">
+                            {% if files_info.csv %}
+                                <i class="fas fa-check-circle"></i> Disponible
+                            {% else %}
+                                <i class="fas fa-times-circle"></i> No disponible
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="export-actions">
+                        <a href="{{ url_for('exportar_datos', formato='csv') }}" class="btn btn-primary">
+                            <i class="fas fa-download"></i>
+                            Descargar CSV
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bulk-actions">
+                <a href="{{ url_for('sincronizar_datos') }}" class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i>
+                    Sincronizar Todos los Archivos
+                </a>
+            </div>
+        </div>
+
+        <!-- Sección de importación -->
+        <div class="datos-section import-section">
+            <div class="section-header">
+                <h3>
+                    <i class="fas fa-upload"></i>
+                    Importar Datos
+                </h3>
+                <p>Carga datos desde archivos externos (CSV o JSON)</p>
+            </div>
+
+            <div class="import-container">
+                <form method="POST" action="{{ url_for('importar_datos') }}" enctype="multipart/form-data" class="import-form">
+                    <div class="file-upload-area">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">
+                            <h4>Selecciona un archivo para importar</h4>
+                            <p>Formatos soportados: CSV, JSON</p>
+                        </div>
+                        <input type="file" name="archivo" id="archivo" accept=".csv,.json" required class="file-input">
+                        <label for="archivo" class="btn btn-outline">
+                            <i class="fas fa-folder-open"></i>
+                            Seleccionar Archivo
+                        </label>
+                    </div>
+                    
+                    <div class="import-info">
+                        <div class="info-card">
+                            <h4>Información Importante:</h4>
+                            <ul>
+                                <li>Los productos duplicados (mismo nombre) serán omitidos</li>
+                                <li>Solo se importarán productos nuevos</li>
+                                <li>El archivo CSV debe tener las columnas: nombre, descripcion, cantidad, precio, categoria</li>
+                                <li>El archivo JSON debe seguir la estructura del sistema</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="import-actions">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-upload"></i>
+                            Importar Datos
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- API y herramientas -->
+        <div class="datos-section api-section">
+            <div class="section-header">
+                <h3>
+                    <i class="fas fa-code"></i>
+                    API y Herramientas
+                </h3>
+                <p>Acceso programático a los datos del inventario</p>
+            </div>
+
+            <div class="api-endpoints">
+                <div class="endpoint-card">
+                    <div class="endpoint-method get">GET</div>
+                    <div class="endpoint-info">
+                        <code>/api/stats</code>
+                        <p>Obtener estadísticas del inventario</p>
+                    </div>
+                    <div class="endpoint-actions">
+                        <a href="{{ url_for('api_stats') }}" target="_blank" class="btn btn-sm btn-outline">
+                            <i class="fas fa-external-link-alt"></i>
+                            Probar
+                        </a>
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-method get">GET</div>
+                    <div class="endpoint-info">
+                        <code>/api/productos</code>
+                        <p>Obtener todos los productos en JSON</p>
+                    </div>
+                    <div class="endpoint-actions">
+                        <a href="{{ url_for('api_productos') }}" target="_blank" class="btn btn-sm btn-outline">
+                            <i class="fas fa-external-link-alt"></i>
+                            Probar
+                        </a>
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-method get">GET</div>
+                    <div class="endpoint-info">
+                        <code>/api/exportar/json</code>
+                        <p>Exportar datos estructurados en JSON</p>
+                    </div>
+                    <div class="endpoint-actions">
+                        <a href="{{ url_for('api_exportar', formato='json') }}" target="_blank" class="btn btn-sm btn-outline">
+                            <i class="fas fa-external-link-alt"></i>
+                            Probar
+                        </a>
+                    </div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-method get">GET</div>
+                    <div class="endpoint-info">
+                        <code>/api/exportar/csv</code>
+                        <p>Exportar datos en formato CSV</p>
+                    </div>
+                    <div class="endpoint-actions">
+                        <a href="{{ url_for('api_exportar', formato='csv') }}" target="_blank" class="btn btn-sm btn-outline">
+                            <i class="fas fa-external-link-alt"></i>
+                            Probar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Estilos específicos para el panel de datos */
+.datos-content {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.datos-section {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+}
+
+.section-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.section-header h3 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-header p {
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Exportación */
+.export-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.export-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.export-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.export-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    min-width: 60px;
+    text-align: center;
+}
+
+.export-info {
+    flex: 1;
+}
+
+.export-info h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--dark-color);
+}
+
+.export-info p {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.file-status {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.file-status.available {
+    color: var(--success-color);
+}
+
+.file-status.unavailable {
+    color: var(--danger-color);
+}
+
+.export-actions {
+    min-width: 140px;
+}
+
+.bulk-actions {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Importación */
+.import-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.file-upload-area {
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    transition: var(--transition);
+}
+
+.file-upload-area:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.upload-text h4 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.upload-text p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.file-input {
+    display: none;
+}
+
+.import-info {
+    margin-bottom: 2rem;
+}
+
+.info-card {
+    background: var(--light-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+}
+
+.info-card h4 {
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+.info-card ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.info-card li {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.import-actions {
+    text-align: center;
+}
+
+/* API */
+.api-endpoints {
+    display: grid;
+    gap: 1rem;
+}
+
+.endpoint-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--light-color);
+}
+
+.endpoint-method {
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.endpoint-method.get {
+    background: var(--success-color);
+    color: white;
+}
+
+.endpoint-info {
+    flex: 1;
+}
+
+.endpoint-info code {
+    background: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    color: var(--primary-color);
+    display: inline-block;
+    margin-bottom: 0.25rem;
+}
+
+.endpoint-info p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .export-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .export-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .endpoint-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+</style>
+
+<script>
+// Mostrar nombre del archivo seleccionado
+document.getElementById('archivo').addEventListener('change', function(e) {
+    const fileName = e.target.files[0]?.name;
+    if (fileName) {
+        const label = document.querySelector('label[for="archivo"]');
+        label.innerHTML = `<i class="fas fa-file"></i> ${fileName}`;
+        label.classList.add('file-selected');
+    }
+});
+
+// Confirmación antes de importar
+document.querySelector('.import-form').addEventListener('submit', function(e) {
+    if (!confirm('¿Estás seguro de que deseas importar este archivo? Los productos duplicados serán omitidos.')) {
+        e.preventDefault();
+    }
+});
+</script>
+{% endblock %}
