@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Usuarios - Inventario Librería{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>👥 Gestión de Usuarios</h2>
+    </div>
+    <div class="col-md-4 text-end">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarUsuarioModal">
+            ➕ Agregar Usuario
+        </button>
+    </div>
+</div>
+
+<!-- Tabla de Usuarios -->
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Lista de Usuarios Registrados</h5>
+            </div>
+            <div class="card-body">
+                {% if usuarios %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Fecha Registro</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for usuario in usuarios %}
+                            <tr>
+                                <td>{{ usuario[0] }}</td>
+                                <td>{{ usuario[1] }}</td>
+                                <td>{{ usuario[2] }}</td>
+                                <td>{{ usuario[3].strftime('%d/%m/%Y %H:%M') if usuario[3] else 'N/A' }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning">✏️ Editar</button>
+                                    <button class="btn btn-sm btn-danger">🗑️ Eliminar</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info text-center">
+                    <h5>No hay usuarios registrados</h5>
+                    <p>Comienza agregando tu primer usuario usando el botón "Agregar Usuario"</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Agregar Usuario -->
+<div class="modal fade" id="agregarUsuarioModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">➕ Agregar Nuevo Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ url_for('agregar_usuario') }}" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre Completo *</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required 
+                               placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email *</label>
+                        <input type="email" class="form-control" id="email" name="email" required 
+                               placeholder="Ej: juan@email.com">
+                    </div>
+                    <small class="text-muted">* Campos obligatorios</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">💾 Guardar Usuario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Estadísticas rápidas -->
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body text-center">
+                <h4>{{ usuarios|length if usuarios else 0 }}</h4>
+                <p>Total de Usuarios</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <h4 id="usuarios-activos">-</h4>
+                <p>Usuarios Activos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-info text-white">
+            <div class="card-body text-center">
+                <h4 id="prestamos-usuario">-</h4>
+                <p>Con Préstamos</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Validación del formulario
+document.querySelector('form').addEventListener('submit', function(e) {
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    
+    if (nombre.length < 2) {
+        alert('El nombre debe tener al menos 2 caracteres');
+        e.preventDefault();
+        return false;
+    }
+    
+    // Validación básica de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Por favor ingresa un email válido');
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Actualizar estadísticas (simulado)
+document.getElementById('usuarios-activos').textContent = {{ usuarios|length if usuarios else 0 }};
+document.getElementById('prestamos-usuario').textContent = '{{ (usuarios|length * 0.3)|int if usuarios else 0 }}';
+</script>
+{% endblock %}

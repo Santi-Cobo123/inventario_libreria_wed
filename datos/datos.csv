@@ -1,51 +1,5 @@
 id,nombre,descripcion,cantidad,precio,categoria,fecha_creacion,fecha_actualizacion
-50,Juego de Mesa Catan,Juego estratégico para toda la familia,18,55.0,Juguetes,2025-09-05 20:41:39,2025-09-05 20:41:39
-49,Guitarra Acústica Yamaha,Guitarra para principiantes con cuerdas de acero,6,199.0,Juguetes,2025-09-05 20:41:39,2025-09-05 20:41:39
-48,Puzzle 1000 Piezas,Rompecabezas de paisaje europeo,20,19.99,Juguetes,2025-09-05 20:41:39,2025-09-05 20:41:39
-47,Drone DJI Mini 3,Drone compacto con cámara 4K y gimbal,5,759.0,Juguetes,2025-09-05 20:41:39,2025-09-05 20:41:39
-46,LEGO Creator Expert,Set de construcción avanzado de 2000 piezas,12,179.99,Juguetes,2025-09-05 20:41:39,2025-09-05 20:41:39
-45,Vitaminas Multivitamínico,Suplemento diario con vitaminas y minerales,50,29.99,Belleza,2025-09-05 20:41:39,2025-09-05 20:41:39
-44,Champú Orgánico Libre de Sulfatos,Champú natural para todo tipo de cabello,35,22.99,Belleza,2025-09-05 20:41:39,2025-09-05 20:41:39
-43,Kit de Maquillaje Profesional,Set completo con pinceles y paleta de colores,15,129.99,Belleza,2025-09-05 20:41:39,2025-09-05 20:41:39
-42,Perfume Chanel No. 5,Fragancia clásica femenina de 100ml,8,165.0,Belleza,2025-09-05 20:41:39,2025-09-05 20:41:39
-41,Crema Facial Anti-edad,Crema con retinol y ácido hialurónico,40,85.0,Belleza,2025-09-05 20:41:39,2025-09-05 20:41:39
-40,Pack Cuadernos Moleskine,Set de 3 cuadernos de tapa dura rayados,25,45.0,Oficina,2025-09-05 20:41:39,2025-09-05 20:41:39
-39,Impresora HP LaserJet,Impresora láser monocromática para oficina,8,199.0,Oficina,2025-09-05 20:41:39,2025-09-05 20:41:39
-38,Monitor 4K 27 pulgadas,Monitor profesional para diseño gráfico,6,349.99,Oficina,2025-09-05 20:41:39,2025-09-05 20:41:39
-37,Escritorio de Madera,Escritorio ejecutivo con 3 cajones y acabado premium,4,399.99,Oficina,2025-09-05 20:41:39,2025-09-05 20:41:39
-36,Silla Ergonómica Oficina,Silla con soporte lumbar y reposabrazos ajustables,11,289.0,Oficina,2025-09-05 20:41:39,2025-09-05 20:41:39
-35,Juego de Cuchillos,Set de 8 cuchillos profesionales con block de madera,7,159.99,Cocina,2025-09-05 20:41:39,2025-09-05 20:41:39
-34,Batidora KitchenAid,Batidora de pie profesional con múltiples accesorios,3,449.99,Cocina,2025-09-05 20:41:39,2025-09-05 20:41:39
-33,Sartén Antiadherente 28cm,Sartén premium con recubrimiento cerámico,16,75.0,Cocina,2025-09-05 20:41:39,2025-09-05 20:41:39
-32,Cafetera Nespresso,Máquina de café expreso con sistema de cápsulas,12,199.0,Cocina,2025-09-05 20:41:39,2025-09-05 20:41:39
-31,Licuadora Vitamix A3500,Licuadora de alta potencia con 5 programas,4,595.0,Cocina,2025-09-05 20:41:39,2025-09-05 20:41:39
-30,Raqueta de Tenis Wilson,Raqueta profesional con grip cómodo,9,125.0,Deportes,2025-09-05 20:41:39,2025-09-05 20:41:39
-29,Esterilla de Yoga Premium,Esterilla antideslizante de 6mm de grosor,30,45.0,Deportes,2025-09-05 20:41:39,2025-09-05 20:41:39
-28,Pelota de Fútbol FIFA,Pelota oficial para competencias profesionales,22,35.0,Deportes,2025-09-05 20:41:39,2025-09-05 20:41:39
-27,Set de Pesas Ajustables,Pesas de 2kg a 20kg con barra y discos,8,189.99,Deportes,2025-09-05 20:41:39,2025-09-05 20:41:39
-26,Bicicleta Mountain Bike,Bicicleta todo terreno con 21 velocidades,5,450.0,Deportes,2025-09-05 20:41:39,2025-09-05 20:41:39
-25,Diccionario Inglés-Español,"Diccionario completo con más de 50,000 entradas",15,28.99,Libros,2025-09-05 20:41:39,2025-09-05 20:41:39
-24,Atlas Mundial 2024,Atlas geográfico actualizado con mapas detallados,10,65.0,Libros,2025-09-05 20:41:39,2025-09-05 20:41:39
-23,Curso de JavaScript Completo,Manual paso a paso para desarrollo web,20,39.99,Libros,2025-09-05 20:41:39,2025-09-05 20:41:39
-22,Cien Años de Soledad,Novela clásica de Gabriel García Márquez,18,15.99,Libros,2025-09-05 20:41:39,2025-09-05 20:41:39
-21,Python Programming 4th Ed,Libro completo para aprender programación en Python,25,49.99,Libros,2025-09-05 20:41:39,2025-09-05 20:41:39
-20,Reloj Casio G-Shock,Reloj deportivo resistente al agua y golpes,14,120.0,Ropa,2025-09-05 20:41:39,2025-09-05 20:41:39
-19,Bolso Michael Kors,Bolso de mano de cuero genuino color negro,6,285.0,Ropa,2025-09-05 20:41:39,2025-09-05 20:41:39
-18,Chaqueta North Face,Chaqueta impermeable para actividades al aire libre,12,199.99,Ropa,2025-09-05 20:41:39,2025-09-05 20:41:39
-17,Zapatillas Adidas Ultraboost,Zapatillas para running con tecnología Boost,18,180.0,Ropa,2025-09-05 20:41:39,2025-09-05 20:41:39
-16,Camiseta Nike Dri-FIT,Camiseta deportiva de alta tecnología,45,29.99,Ropa,2025-09-05 20:41:39,2025-09-05 20:41:39
-15,Jeans Levis 501 Original,"Jeans clásicos de mezclilla azul, talla variada",30,89.99,Ropa,2025-09-05 20:41:39,2025-09-05 20:41:39
-14,Cortinas Blackout,"Cortinas que bloquean la luz, ideales para dormitorios",15,75.0,Hogar,2025-09-05 20:41:39,2025-09-05 20:41:39
-13,Cojines Decorativos Set,Set de 4 cojines de diferentes texturas y colores,20,45.0,Hogar,2025-09-05 20:41:39,2025-09-05 20:41:39
-12,Espejo Decorativo Grande,Espejo de pared con marco dorado de 120cm,5,89.99,Hogar,2025-09-05 20:41:39,2025-09-05 20:41:39
-11,Lámpara de Pie LED,Lámpara moderna con regulador de intensidad,8,125.0,Hogar,2025-09-05 20:41:39,2025-09-05 20:41:39
-10,Mesa de Comedor Redonda,Mesa de madera maciza para 6 personas,2,550.0,Hogar,2025-09-05 20:41:39,2025-09-05 20:41:39
-9,Sofá 3 Plazas Moderno,Sofá cómodo de tela gris con patas de madera,3,899.0,Hogar,2025-09-05 20:41:39,2025-09-05 20:41:39
-8,Nintendo Switch OLED,Consola de videojuegos portátil con pantalla OLED,7,349.99,Electrónicos,2025-09-05 20:41:39,2025-09-05 20:41:39
-7,Apple Watch Series 9,Reloj inteligente con GPS y monitor de salud,10,429.0,Electrónicos,2025-09-05 20:41:39,2025-09-05 20:41:39
-6,AirPods Pro 2,Auriculares inalámbricos con cancelación de ruido,25,249.99,Electrónicos,2025-09-05 20:41:39,2025-09-05 20:41:39
-5,MacBook Pro 14,Laptop Apple con chip M3 Pro para profesionales,4,2399.0,Electrónicos,2025-09-05 20:41:39,2025-09-05 20:41:39
-4,iPad Air 10.9,Tablet Apple con chip M1 y pantalla Liquid Retina,6,650.0,Electrónicos,2025-09-05 20:41:39,2025-09-05 20:41:39
-3,Samsung Galaxy S24,Teléfono Android con pantalla AMOLED de 6.1 pulgadas,12,899.99,Electrónicos,2025-09-05 20:41:39,2025-09-05 20:41:39
-2,iPhone 14 Pro,Smartphone Apple con cámara de 48MP y pantalla Super Retina XDR,8,1200.0,Electrónicos,2025-09-05 20:41:39,2025-09-05 20:41:39
-1,Laptop Dell Inspiron 15,Laptop para uso profesional con procesador Intel Core i5,15,750.0,Electrónicos,2025-09-05 20:41:39,2025-09-05 20:41:39
+4,Mesa de madera,Mesa de comedor para 6 personas,3,299.99,Hogar,2025-09-14 14:42:29,2025-09-14 14:42:29
+3,El Quijote,Libro clásico de literatura española,15,19.99,Libros,2025-09-14 14:42:29,2025-09-14 14:42:29
+2,Camiseta Nike,Camiseta deportiva Nike talla M,20,29.99,Ropa,2025-09-14 14:42:29,2025-09-14 14:42:29
+1,Laptop HP,Laptop HP Pavilion 15 pulgadas,5,899.99,Electrónicos,2025-09-14 14:42:29,2025-09-14 14:42:29
